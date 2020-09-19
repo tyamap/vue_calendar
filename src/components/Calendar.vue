@@ -22,6 +22,8 @@
               class="cal-day"
               v-for="(dayNum, index) in weekData"
               :key="index"
+              v-on:touchstart="dateClick(dayNum)"
+              :class="{ 'cal-today': isToday(dayNum), active: day === dayNum }"
             >
               <span>{{ dayNum }}</span>
             </td>
@@ -43,7 +45,40 @@ export default {
       today: "",
     };
   },
+  mounted() {
+    var date = new Date();
+    var y = date.getFullYear();
+    var m = ("0" + (date.getMonth() + 1)).slice(-2);
+    var d = ("0" + date.getDate()).slice(-2);
+
+    // yearとmonthを設定
+    this.year = y;
+    this.month = Number(m);
+
+    // 今日の日付を設定
+    this.today = y + "-" + m + "-" + d;
+  },
   methods: {
+    /**
+     * カレンダー日付クリック時の処理
+     */
+    dateClick: function(dayNum) {
+      if (dayNum !== "") {
+        this.day = dayNum;
+      }
+    },
+    /**
+     * 今日かどうかの判定
+     * 年、月は現在選択しているページ
+     * 日は引数
+     */
+    isToday: function(day) {
+      var date = this.year + "-" + ('00' + this.month).slice(-2) + "-" + day;
+      if (this.today === date) {
+        return true;
+      }
+      return false;
+    },
     /**
      * 先月のカレンダーを取得
      */
@@ -71,7 +106,7 @@ export default {
   },
   computed: {
     calData: function() {
-      console.log(this.year + "-" + this.month + "のデータ作成");
+
       var calData = [];
 
       // 初日の曜日を取得
