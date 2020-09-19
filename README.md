@@ -1,4 +1,4 @@
-# v_calendar
+# vue_cal
 
 ## Project setup
 ```
