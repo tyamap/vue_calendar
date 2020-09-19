@@ -1,19 +1,34 @@
 <template>
   <div>
+    <!-- カレンダーヘッダ -->
+    <div id="cal-header">
+      <span class="header-arrow" v-on:touchstart="setLastMonth">＜</span>
+      <span class="selected-month">{{ year }} / {{ month }}</span>
+      <span class="header-arrow" v-on:touchstart="setNextMonth">＞</span>
+    </div>
+    <!-- カレンダーメイン -->
+  <div>
     <table id="cal-main">
       <!-- 曜日を表示させる（テーブルヘッダ） -->
       <thead>
-        <th v-for="(dayname, index) in weekdays" :key="index">{{ dayname }}</th>
+          <th v-for="(dayname, index) in weekdays" :key="index">
+            {{ dayname }}
+          </th>
       </thead>
       <!-- 日付を表示させる（テーブルボディ） -->
       <tbody>
         <tr v-for="(weekData, index) in calData" :key="index">
-          <td class="cal-day" v-for="(dayNum, index) in weekData" :key="index">
+            <td
+              class="cal-day"
+              v-for="(dayNum, index) in weekData"
+              :key="index"
+            >
             <span>{{ dayNum }}</span>
           </td>
         </tr>
       </tbody>
     </table>
+  </div>
   </div>
 </template>
 
@@ -27,6 +42,32 @@ export default {
       day: -1,
       today: "",
     };
+  },
+  methods: {
+    /**
+     * 先月のカレンダーを取得
+     */
+    setLastMonth: function() {
+      if (this.month === 1) {
+        this.year--;
+        this.month = 12;
+      } else {
+        this.month--;
+      }
+      this.day = -1;
+    },
+    /**
+     * 翌月のカレンダーを取得
+     */
+    setNextMonth: function() {
+      if (this.month === 12) {
+        this.year++;
+        this.month = 1;
+      } else {
+        this.month++;
+      }
+      this.day = -1;
+    },
   },
   computed: {
     calData: function() {
@@ -47,6 +88,24 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+/*---------------------------------------
+ヘッダのcss
+---------------------------------------*/
+#cal-header {
+  font-size: 24px;
+  padding: 0;
+  text-align: center;
+  margin-bottom: 10px;
+  background-color: skyblue;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+}
+#cal-header span {
+  padding: 10px 20px;
+  color: white;
+  display: inline-block;
+}
 /*---------------------------------------
 カレンダーのcss
 ---------------------------------------*/
