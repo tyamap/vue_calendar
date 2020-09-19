@@ -7,28 +7,28 @@
       <span class="header-arrow" v-on:touchstart="setNextMonth">＞</span>
     </div>
     <!-- カレンダーメイン -->
-  <div>
-    <table id="cal-main">
-      <!-- 曜日を表示させる（テーブルヘッダ） -->
-      <thead>
+    <div>
+      <table id="cal-main">
+        <!-- 曜日を表示させる（テーブルヘッダ） -->
+        <thead>
           <th v-for="(dayname, index) in weekdays" :key="index">
             {{ dayname }}
           </th>
-      </thead>
-      <!-- 日付を表示させる（テーブルボディ） -->
-      <tbody>
-        <tr v-for="(weekData, index) in calData" :key="index">
+        </thead>
+        <!-- 日付を表示させる（テーブルボディ） -->
+        <tbody>
+          <tr v-for="(weekData, index) in calData" :key="index">
             <td
               class="cal-day"
               v-for="(dayNum, index) in weekData"
               :key="index"
             >
-            <span>{{ dayNum }}</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+              <span>{{ dayNum }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -74,12 +74,35 @@ export default {
       console.log(this.year + "-" + this.month + "のデータ作成");
       var calData = [];
 
-      calData[0] = [1, 2, 3, 4, 5, 6, 7];
-      calData[1] = [8, 9, 10, 11, 12, 13, 14];
-      calData[2] = [15, 16, 17, 18, 19, 20, 21];
-      calData[3] = [22, 23, 24, 25, 26, 27, 28];
-      calData[4] = [29, 30, 31, "", "", "", ""];
+      // 初日の曜日を取得
+      var firstWeekDay = new Date(this.year, this.month - 1, 1).getDay();
 
+      // 月の日数
+      var lastDay = new Date(this.year, this.month, 0).getDate();
+
+      // 日数カウント用
+      var dayNum = 1;
+
+      // 週ごとのデータを作成して、calDateにpush
+      while (dayNum <= lastDay) {
+        var weekData = [];
+
+        // 日曜～土曜の日付データを配列で作成
+        for (var i = 0; i <= 6; i++) {
+          if (calData.length === 0 && i < firstWeekDay) {
+            // 初週の1日以前の曜日は空文字
+            weekData[i] = "";
+          } else if (lastDay < dayNum) {
+            // 最終日以降の曜日は空文字
+            weekData[i] = "";
+          } else {
+            // 通常の日付入力
+            weekData[i] = dayNum;
+            dayNum++;
+          }
+        }
+        calData.push(weekData);
+      }
       return calData;
     },
   },
