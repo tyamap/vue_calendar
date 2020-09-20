@@ -3,8 +3,9 @@
     <!-- カレンダーヘッダ -->
     <div class="cal-header">
       <span class="header-arrow" @click="setLastMonth">＜</span>
-      <span class="selected-month">{{ year }} / {{ month }}</span>
       <span class="header-arrow" @click="setNextMonth">＞</span>
+      <span class="selected-month">{{ year }} / {{ month }}</span>
+      <span class="back-today" @click="setCurrentYearAndMonth">today</span>
     </div>
   </div>
 </template>
@@ -14,7 +15,11 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   computed: mapGetters(["year", "month"]),
-  methods: mapActions(["setLastMonth", "setNextMonth"]),
+  methods: mapActions([
+    "setLastMonth",
+    "setNextMonth",
+    "setCurrentYearAndMonth",
+  ]),
 };
 </script>
 
@@ -22,19 +27,30 @@ export default {
 /*---------------------------------------
 ヘッダのcss
 ---------------------------------------*/
-.cal-header {
-  font-size: 1.5em;
-  padding: 0;
-  text-align: center;
+#nav-bar {
+  height: 50px;
   background-color: skyblue;
-  display: flex;
-  justify-content: space-between;
+}
+span {
+  font-size: 24px;
+  line-height: 24px;
+  color: white;
+  display: inline-block;
+  margin: 13px 10px;
+}
+.cal-header {
   cursor: default;
   user-select: none;
 }
-.cal-header span {
-  padding: 0.5em 1.5em;
-  color: white;
-  display: inline-block;
+.selected-month {
+  width: 110px;
+}
+.back-today {
+  font-size: 18px;
+  margin: 9px;
+  padding: 3px;
+  border: 1px solid;
+  border-radius: 20%;
+  float: right;
 }
 </style>

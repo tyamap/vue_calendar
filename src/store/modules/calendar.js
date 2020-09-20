@@ -49,6 +49,13 @@ const mutations = {
     }
     state.date = -1;
   },
+  /**
+  * 今月のカレンダーを表示
+  */
+  setCurrentYearAndMonth(state) {
+    state.year = Number(state.today.slice(0,4));
+    state.month = Number(state.today.slice(5,7));
+  }
 };
 const actions = {
   setYear({ commit }, year) {
@@ -69,6 +76,9 @@ const actions = {
   setNextMonth({ commit }) {
     commit("setNextMonth")
   },
+  setCurrentYearAndMonth({ commit }) {
+    commit("setCurrentYearAndMonth")
+  }
 };
 export default {
   state,
