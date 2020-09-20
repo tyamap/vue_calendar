@@ -1,16 +1,22 @@
 <template>
   <div id="app">
-    <Calendar></Calendar>
+    <NavigationBar></NavigationBar>
+    <ErrorSnackBar></ErrorSnackBar>
+    <CalendarBoard></CalendarBoard>
   </div>
 </template>
 
 <script>
-import Calendar from './components/Calendar.vue'
+import ErrorSnackBar from './components/NavigationBar.vue'
+import NavigationBar from './components/ErrorSnackBar.vue'
+import CalendarBoard from './views/CalendarBoard.vue'
 
 export default {
   name: 'App',
   components: {
-    Calendar
+    ErrorSnackBar,
+    NavigationBar,
+    CalendarBoard,
   }
 }
 </script>
