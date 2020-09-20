@@ -1,39 +1,39 @@
 <template>
-  <div>
+  <div id="nav-bar">
     <!-- カレンダーヘッダ -->
-    <div id="cal-header">
-      <span class="header-arrow" v-on:touchstart="setLastMonth">＜</span>
+    <div class="cal-header">
+      <span class="header-arrow" @click="setLastMonth">＜</span>
       <span class="selected-month">{{ year }} / {{ month }}</span>
-      <span class="header-arrow" v-on:touchstart="setNextMonth">＞</span>
+      <span class="header-arrow" @click="setNextMonth">＞</span>
     </div>
   </div>
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-  computed: mapGetters(['year', 'month']),
-  methods: mapActions(['setLastMonth', 'setNextMonth'])
-}
+  computed: mapGetters(["year", "month"]),
+  methods: mapActions(["setLastMonth", "setNextMonth"]),
+};
 </script>
 
 <style scoped>
 /*---------------------------------------
 ヘッダのcss
 ---------------------------------------*/
-#cal-header {
-  font-size: 24px;
+.cal-header {
+  font-size: 1.5em;
   padding: 0;
   text-align: center;
-  margin-bottom: 10px;
   background-color: skyblue;
-  border-bottom: 1px solid #ddd;
   display: flex;
   justify-content: space-between;
+  cursor: default;
+  user-select: none;
 }
-#cal-header span {
-  padding: 10px 20px;
+.cal-header span {
+  padding: 0.5em 1.5em;
   color: white;
   display: inline-block;
 }
