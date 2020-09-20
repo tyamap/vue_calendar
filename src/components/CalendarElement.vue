@@ -3,15 +3,15 @@
     <!-- 曜日の表示 -->
     <div
       class="weekdays"
-      v-for="(dayname, index) in this.$store.getters.weekdays"
-      :key="'w-' + index"
+      v-for="(dayname) in this.$store.getters.weekdays"
+      :key="dayname"
     >
       <span>{{ dayname }}</span>
     </div>
     <div
       class="cal-date"
       v-for="(dateNum, index) in calData"
-      :key="'d-' + index"
+      :key="index"
       @click="dateClick(dateNum)"
       :class="{ 'cal-today': isToday(dateNum), active: date === dateNum }"
     >
