@@ -4,14 +4,14 @@
     <div
       class="weekdays"
       v-for="(dayname, index) in this.$store.getters.weekdays"
-      :key="index"
+      :key="'w-' + index"
     >
       <span>{{ dayname }}</span>
     </div>
     <div
       class="cal-date"
       v-for="(dateNum, index) in calData"
-      :key="index"
+      :key="'d-' + index"
       @click="dateClick(dateNum)"
       :class="{ 'cal-today': isToday(dateNum), active: date === dateNum }"
     >
