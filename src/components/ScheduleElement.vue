@@ -2,7 +2,7 @@
   <div class="schedule">
     <V-list>
       <V-list-item subheader dense v-for="(schedule, i) in schedules" :key="i">
-        <V-list-item-content>
+        <V-list-item-content @click.stop="showSchedule(schedule)">
           <V-list-item-title v-text="schedule.title"></V-list-item-title>
         </V-list-item-content>
       </V-list-item>
@@ -12,10 +12,22 @@
 
 <script>
 import { mapGetters } from "vuex";
+
 export default {
-  props: ["schedules", "dateNum"],
+  props: ["schedules"],
+  data() {
+    return{
+      schedule: {},
+    }
+  },
   computed: {
     ...mapGetters(["year", "month"]),
+  },
+  methods: {
+    showSchedule: function(schedule){
+      this.$store.dispatch("setSchedule", schedule);
+      this.$store.dispatch("toggleShowSchedule");
+    }
   },
 };
 </script>
@@ -29,12 +41,13 @@ $list-dense-min-height: 1em;
   max-width: calc(100vw / 7 - 1px);
   overflow: scroll;
 }
-.v-list{
+.v-list {
   padding: 0;
 }
 .v-list--dense .v-list-item .v-list-item__content,
 .v-list-item--dense .v-list-item__content {
   padding: 3px;
+  cursor: pointer;
 }
 .v-list--dense .v-list-item,
 .v-list-item--dense {

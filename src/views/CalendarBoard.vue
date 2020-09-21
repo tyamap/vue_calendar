@@ -1,14 +1,15 @@
 <template>
   <div id="board">
     <CalendarGrid></CalendarGrid>
+    <ShowSchedule></ShowSchedule>
   </div>
 </template>
 
 <script>
 import CalendarGrid from "@/components/CalendarGrid";
+import ShowSchedule from "@/components/ShowSchedule.vue";
 
 export default {
-  computed: {},
   created() {
     var date = new Date();
     var y = date.getFullYear();
@@ -24,6 +25,7 @@ export default {
   },
   components: {
     CalendarGrid,
+    ShowSchedule,
   },
 };
 </script>
