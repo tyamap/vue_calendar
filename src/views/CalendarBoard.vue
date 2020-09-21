@@ -2,12 +2,14 @@
   <div id="board">
     <CalendarGrid></CalendarGrid>
     <ShowSchedule></ShowSchedule>
+    <AddSchedule v-if="this.$store.getters.addSchedule"></AddSchedule>
   </div>
 </template>
 
 <script>
 import CalendarGrid from "@/components/CalendarGrid";
 import ShowSchedule from "@/components/ShowSchedule.vue";
+import AddSchedule from "@/components/AddSchedule.vue";
 
 export default {
   created() {
@@ -26,6 +28,7 @@ export default {
   components: {
     CalendarGrid,
     ShowSchedule,
+    AddSchedule,
   },
 };
 </script>

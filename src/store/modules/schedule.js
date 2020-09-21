@@ -7,13 +7,7 @@ const getters = {
   schedule: (state) => state.schedule,
 };
 const mutations = {
-  addSchedule(state, { title, date, location, note }) {
-    const schedule = {
-      title,
-      date,
-      location,
-      note,
-    };
+  addSchedule(state, schedule) {
     state.schedules.push(schedule);
   },
   setSchedule(state, schedule) {
@@ -21,8 +15,8 @@ const mutations = {
   },
 };
 const actions = {
-  addSchedule({ commit }, { title, date, location, note }) {
-    commit("addSchedule", { title, date, location, note });
+  addSchedule({ commit }, schedule) {
+    commit("addSchedule", schedule);
   },
   setSchedule({ commit }, schedule) {
     commit("setSchedule", schedule);
