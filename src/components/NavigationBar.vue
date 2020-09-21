@@ -1,13 +1,17 @@
 <template>
-  <div id="nav-bar">
-    <!-- カレンダーヘッダ -->
-    <div class="cal-header">
-      <span class="btn navigation">🍔</span>
-      <span class="btn header-arrow" @click="setLastMonth">＜</span>
-      <span class="btn header-arrow" @click="setNextMonth">＞</span>
-      <span class="selected-month">{{ year }} / {{ month }}</span>
-      <span class="btn back-today" @click="setCurrentYearAndMonth">today</span>
-    </div>
+  <div>
+    <V-toolbar height="50px" color="cyan darken-3" dark flat>
+      <V-app-bar-nav-icon></V-app-bar-nav-icon>
+      <V-btn icon small @click="setLastMonth"
+        ><V-icon>mdi-chevron-left</V-icon></V-btn
+      >
+      <V-btn icon small @click="setNextMonth"
+        ><V-icon>mdi-chevron-right</V-icon></V-btn
+      >
+      <V-toolbar-title>{{ year }} / {{ month }}</V-toolbar-title>
+      <V-spacer></V-spacer>
+      <V-btn outlined small @click="setCurrentYearAndMonth">today</V-btn>
+    </V-toolbar>
   </div>
 </template>
 
@@ -23,40 +27,3 @@ export default {
   ]),
 };
 </script>
-
-<style scoped>
-/*---------------------------------------
-ヘッダのcss
----------------------------------------*/
-#nav-bar {
-  height: 50px;
-  background-color: skyblue;
-  cursor: default;
-  user-select: none;
-}
-span {
-  font-size: 24px;
-  margin: 11px 10px;
-  padding: 0;
-  color: white;
-  display: inline-block;
-  line-height: 24px;
-}
-.navigation {
-  width: 24px;
-  float: left;
-}
-.selected-month {
-  width: 110px;
-}
-.back-today {
-  float: right;
-}
-.btn {
-  font-size: 18px;
-  margin: 9px;
-  padding: 3px;
-  border: 1px solid;
-  border-radius: 20%;
-}
-</style>
