@@ -1,11 +1,11 @@
 <template>
   <div id="board">
-    <CalendarElement></CalendarElement>
+    <CalendarGrid></CalendarGrid>
   </div>
 </template>
 
 <script>
-import CalendarElement from "@/components/CalendarElement";
+import CalendarGrid from "@/components/CalendarGrid";
 
 export default {
   computed: {},
@@ -23,7 +23,7 @@ export default {
     this.$store.dispatch("setToday", y + "-" + m + "-" + d);
   },
   components: {
-    CalendarElement,
+    CalendarGrid,
   },
 };
 </script>

@@ -14,14 +14,14 @@
         }"
       >
         <span>{{ dateNum }}</span>
-        <Schedule :schedules="thisSchedules(dateNum)"></Schedule>
+        <ScheduleElement :schedules="thisSchedules(dateNum)"></ScheduleElement>
       </div>
     </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import Schedule from "./Schedule.vue"
+import ScheduleElement from "./ScheduleElement.vue"
 
 export default {
   methods: {
@@ -102,7 +102,7 @@ export default {
     },
   },
   components:{
-    Schedule,
+    ScheduleElement,
   }
 };
 </script>
