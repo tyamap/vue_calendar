@@ -71,6 +71,7 @@ export default {
         location: s.location,
         note: s.note,
       });
+      this.closeCard();
     },
     closeCard: function() {
       this.$store.dispatch("toggleAddSchedule");

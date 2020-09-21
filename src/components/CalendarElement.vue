@@ -1,5 +1,4 @@
 <template>
-  <div id="cal-main">
     <div class="cal-grid">
       <div class="weekdays" v-for="dayname in weekdays" :key="dayname">
         <span>{{ dayname }}</span>
@@ -12,17 +11,17 @@
         :class="{
           'cal-today': isToday(dateNum),
           active: date === dateNum,
-          'has-schedule': hasSchedule(dateNum),
         }"
       >
         <span>{{ dateNum }}</span>
+        <Schedule :schedules="thisSchedules(dateNum)"></Schedule>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import Schedule from "./Schedule.vue"
 
 export default {
   methods: {
@@ -53,23 +52,24 @@ export default {
       return false;
     },
     /**
-     * 予定が登録されているかどうかの判定
+     * 引数で受け取った日の予定リストを返す
      * 年、月は現在選択しているページ
      * 日は引数
      */
-    hasSchedule: function(dateNum) {
+    thisSchedules: function(dateNum){
       const date =
         this.year +
         "-" +
         ("00" + this.month).slice(-2) +
         "-" +
         ("00" + dateNum).slice(-2);
+      let thisSchedules = [];
       for (var i = 0; i < this.schedules.length; i++) {
         if (this.schedules[i].date === date) {
-          return true;
+          thisSchedules.push(this.schedules[i])
         }
       }
-      return false;
+      return thisSchedules;
     },
   },
   computed: {
@@ -101,6 +101,9 @@ export default {
       return calData;
     },
   },
+  components:{
+    Schedule,
+  }
 };
 </script>
 
@@ -122,7 +125,7 @@ export default {
   border-right: 1px solid #ddd;
 }
 .cal-date {
-  padding: 5px;
+  padding: 0;
   border-top: 1px solid #ddd;
   border-right: 1px solid #ddd;
 }
@@ -135,8 +138,5 @@ export default {
   border-radius: 50%;
   background-color: #00838f;
   color: #fff;
-}
-.has-schedule {
-  background-color: #00d5e8b5;
 }
 </style>
