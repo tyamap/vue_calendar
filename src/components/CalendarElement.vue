@@ -1,21 +1,22 @@
 <template>
   <div id="cal-main">
-    <!-- 曜日の表示 -->
-    <div
-      class="weekdays"
-      v-for="(dayname) in this.$store.getters.weekdays"
-      :key="dayname"
-    >
-      <span>{{ dayname }}</span>
-    </div>
-    <div
-      class="cal-date"
-      v-for="(dateNum, index) in calData"
-      :key="index"
-      @click="dateClick(dateNum)"
-      :class="{ 'cal-today': isToday(dateNum), active: date === dateNum }"
-    >
-      <span>{{ dateNum }}</span>
+    <div class="cal-grid">
+      <div
+        class="weekdays"
+        v-for="dayname in this.$store.getters.weekdays"
+        :key="dayname"
+      >
+        <span>{{ dayname }}</span>
+      </div>
+      <div
+        class="cal-date"
+        v-for="(dateNum, index) in calData"
+        :key="index"
+        @click="dateClick(dateNum)"
+        :class="{ 'cal-today': isToday(dateNum), active: date === dateNum }"
+      >
+        <span>{{ dateNum }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -31,6 +32,7 @@ export default {
     dateClick: function(dateNum) {
       if (dateNum !== "") {
         this.$store.dispatch("setDate", dateNum);
+        this.$store.dispatch("toggleAddSchedule");
       }
     },
     /**
@@ -83,7 +85,7 @@ export default {
 /*---------------------------------------
 カレンダーのcss
 ---------------------------------------*/
-#cal-main {
+.cal-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: 1em repeat(6, 14.5vh);
@@ -105,12 +107,12 @@ export default {
   width: 2em;
   line-height: 2em;
 }
-.cal-today span{
+.cal-today span {
   border-radius: 50%;
   background-color: cornflowerblue;
   color: #fff;
 }
-.cal-date.active{
+.cal-date.active {
   background-color: skyblue;
 }
 </style>

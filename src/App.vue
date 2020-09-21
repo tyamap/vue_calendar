@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <AddSchedule v-if="this.$store.getters.addSchedule"></AddSchedule>
     <NavigationBar></NavigationBar>
     <ErrorSnackBar></ErrorSnackBar>
     <CalendarBoard></CalendarBoard>
@@ -7,18 +8,20 @@
 </template>
 
 <script>
-import ErrorSnackBar from './components/NavigationBar.vue'
-import NavigationBar from './components/ErrorSnackBar.vue'
-import CalendarBoard from './views/CalendarBoard.vue'
+import ErrorSnackBar from "./components/NavigationBar.vue";
+import NavigationBar from "./components/ErrorSnackBar.vue";
+import AddSchedule from "./components/AddSchedule.vue";
+import CalendarBoard from "./views/CalendarBoard.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     ErrorSnackBar,
     NavigationBar,
     CalendarBoard,
-  }
-}
+    AddSchedule,
+  },
+};
 </script>
 
 <style>
