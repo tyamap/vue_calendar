@@ -1,10 +1,10 @@
 <template>
-  <div id="app">
+  <V-app id="app">
     <AddSchedule v-if="this.$store.getters.addSchedule"></AddSchedule>
     <NavigationBar></NavigationBar>
     <ErrorSnackBar></ErrorSnackBar>
     <CalendarBoard></CalendarBoard>
-  </div>
+  </V-app>
 </template>
 
 <script>
