@@ -6,24 +6,24 @@ const state = {
   today: "",
 };
 const getters = {
-  weekdays: state => state.weekdays,
-  year: state => state.year,
-  month: state => state.month,
-  date: state => state.date,
-  today: state => state.today,
+  weekdays: (state) => state.weekdays,
+  year: (state) => state.year,
+  month: (state) => state.month,
+  date: (state) => state.date,
+  today: (state) => state.today,
 };
 const mutations = {
   setYear(state, year) {
-    state.year = year
+    state.year = year;
   },
   setMonth(state, month) {
-    state.month = month
+    state.month = month;
   },
   setDate(state, date) {
-    state.date = date
+    state.date = date;
   },
   setToday(state, today) {
-    state.today = today
+    state.today = today;
   },
   /**
    * 先月のカレンダーを取得
@@ -50,39 +50,39 @@ const mutations = {
     state.date = -1;
   },
   /**
-  * 今月のカレンダーを表示
-  */
+   * 今月のカレンダーを表示
+   */
   setCurrentYearAndMonth(state) {
-    state.year = Number(state.today.slice(0,4));
-    state.month = Number(state.today.slice(5,7));
-  }
+    state.year = Number(state.today.slice(0, 4));
+    state.month = Number(state.today.slice(5, 7));
+  },
 };
 const actions = {
   setYear({ commit }, year) {
-    commit("setYear", year)
+    commit("setYear", year);
   },
   setMonth({ commit }, month) {
-    commit("setMonth", month)
+    commit("setMonth", month);
   },
   setDate({ commit }, date) {
-    commit("setDate", date)
+    commit("setDate", date);
   },
   setToday({ commit }, today) {
-    commit("setToday", today)
+    commit("setToday", today);
   },
   setLastMonth({ commit }) {
-    commit("setLastMonth")
+    commit("setLastMonth");
   },
   setNextMonth({ commit }) {
-    commit("setNextMonth")
+    commit("setNextMonth");
   },
   setCurrentYearAndMonth({ commit }) {
-    commit("setCurrentYearAndMonth")
-  }
+    commit("setCurrentYearAndMonth");
+  },
 };
 export default {
   state,
   getters,
   mutations,
-  actions
+  actions,
 };
