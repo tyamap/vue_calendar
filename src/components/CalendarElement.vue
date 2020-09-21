@@ -1,11 +1,7 @@
 <template>
   <div id="cal-main">
     <div class="cal-grid">
-      <div
-        class="weekdays"
-        v-for="dayname in this.$store.getters.weekdays"
-        :key="dayname"
-      >
+      <div class="weekdays" v-for="dayname in weekdays" :key="dayname">
         <span>{{ dayname }}</span>
       </div>
       <div
@@ -13,7 +9,11 @@
         v-for="(dateNum, index) in calData"
         :key="index"
         @click="dateClick(dateNum)"
-        :class="{ 'cal-today': isToday(dateNum), active: date === dateNum }"
+        :class="{
+          'cal-today': isToday(dateNum),
+          active: date === dateNum,
+          'has-schedule': hasSchedule(dateNum),
+        }"
       >
         <span>{{ dateNum }}</span>
       </div>
@@ -40,16 +40,40 @@ export default {
      * 年、月は現在選択しているページ
      * 日は引数
      */
-    isToday: function(d) {
-      var date = this.year + "-" + ("00" + this.month).slice(-2) + "-" + d;
+    isToday: function(dateNum) {
+      const date =
+        this.year +
+        "-" +
+        ("00" + this.month).slice(-2) +
+        "-" +
+        ("00" + dateNum).slice(-2);
       if (this.today === date) {
         return true;
       }
       return false;
     },
+    /**
+     * 予定が登録されているかどうかの判定
+     * 年、月は現在選択しているページ
+     * 日は引数
+     */
+    hasSchedule: function(dateNum) {
+      const date =
+        this.year +
+        "-" +
+        ("00" + this.month).slice(-2) +
+        "-" +
+        ("00" + dateNum).slice(-2);
+      for (var i = 0; i < this.schedules.length; i++) {
+        if (this.schedules[i].date === date) {
+          return true;
+        }
+      }
+      return false;
+    },
   },
   computed: {
-    ...mapGetters(["year", "month", "today", "date"]),
+    ...mapGetters(["year", "month", "today", "date", "weekdays", "schedules"]),
     calData: function() {
       var calData = [];
       // 初日の曜日を取得
@@ -88,7 +112,7 @@ export default {
 .cal-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: 1em repeat(6, 14.5vh);
+  grid-template-rows: 1em repeat(6, calc((100vh - 1em - 50px) / 6));
   cursor: default;
   user-select: none;
 }
@@ -109,7 +133,10 @@ export default {
 }
 .cal-today span {
   border-radius: 50%;
-  background-color: #00838F;
+  background-color: #00838f;
   color: #fff;
+}
+.has-schedule {
+  background-color: #00d5e8b5;
 }
 </style>
