@@ -109,10 +109,7 @@ export default {
 }
 .cal-today span {
   border-radius: 50%;
-  background-color: cornflowerblue;
+  background-color: #00838F;
   color: #fff;
-}
-.cal-date.active {
-  background-color: skyblue;
 }
 </style>

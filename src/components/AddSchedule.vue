@@ -23,9 +23,9 @@
         </V-form>
       </V-card-text>
       <V-card-actions>
-        <V-btn @click="closeCard">CANCEL</V-btn>
+        <V-btn @click="closeCard" outlined>CANCEL</V-btn>
         <V-spacer></V-spacer>
-        <V-btn @click="closeCard" color="#00B8D4">SAVE</V-btn>
+        <V-btn @click="closeCard" color="cyan" dark>SAVE</V-btn>
       </V-card-actions>
     </V-card>
   </div>
