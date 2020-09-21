@@ -1,13 +1,5 @@
 <template>
-  <div>
-    <!-- 曜日の表示 -->
-    <div
-      role="weekdays"
-      v-for="(dayname, index) in this.$store.getters.weekdays"
-      :key="index"
-    >
-      {{ dayname }}
-    </div>
+  <div id="board">
     <CalendarElement></CalendarElement>
   </div>
 </template>
@@ -35,13 +27,3 @@ export default {
   },
 };
 </script>
-
-<style>
-div[role="weekdays"] {
-  width: 14.285%;
-  /* float: left; */
-  display: inline-block;
-  font-size: 0.9em;
-  color: #999;
-}
-</style>
