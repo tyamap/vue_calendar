@@ -8,10 +8,6 @@
       </V-list-item>
     </V-list>
   </div>
-  <!-- <ul class='schedule'>
-  <li class="schedule-element">
-  </li>
-</ul> -->
 </template>
 
 <script>
