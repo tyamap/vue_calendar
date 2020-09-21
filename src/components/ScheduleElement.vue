@@ -54,7 +54,7 @@ $list-dense-min-height: 1em;
   margin: 2px;
   padding: 0 3px;
   min-height: 15px;
-  background-color: #c8e6c9;
+  background-color: #F8BBD0;
   border-radius: 5px;
 }
 </style>
