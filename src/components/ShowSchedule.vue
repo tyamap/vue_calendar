@@ -6,10 +6,9 @@
     @click:outside="closeDialog"
   >
     <V-card>
-      <V-card-title class="headline">{{ schedule.title }}<V-spacer></V-spacer>
-        <V-btn small icon @click="closeDialog"
-        ><V-icon>mdi-close</V-icon></V-btn
-      ></V-card-title>
+            <V-btn v-on="on" v-bind="attrs" small icon @click="deleteSchedule">
+              <V-icon>mdi-trash-can-outline</V-icon>
+            </V-btn>
       <V-card-text>
         <ul>
           <li><V-icon>mdi-calendar</V-icon> {{ schedule.date }}</li>
@@ -34,6 +33,10 @@ export default {
   computed: mapGetters(["showSchedule", "schedule"]),
   methods: {
     closeDialog: function() {
+      this.$store.dispatch("toggleShowSchedule");
+    },
+    deleteSchedule: function() {
+      this.$store.dispatch("deleteSchedule", this.schedule);
       this.$store.dispatch("toggleShowSchedule");
     },
   },

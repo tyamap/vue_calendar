@@ -13,6 +13,12 @@ const mutations = {
   setSchedule(state, schedule) {
     state.schedule = schedule;
   },
+  deleteSchedule(state, schedule) {
+    const index = state.schedules.indexOf(schedule);
+    if (index > -1) {
+      state.schedules.splice(index, 1);
+    }
+  }
 };
 const actions = {
   addSchedule({ commit }, schedule) {
@@ -21,6 +27,9 @@ const actions = {
   setSchedule({ commit }, schedule) {
     commit("setSchedule", schedule);
   },
+  deleteSchedule({ commit }, schedule) {
+    commit("deleteSchedule", schedule);
+  }
 };
 export default {
   state,
