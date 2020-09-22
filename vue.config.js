@@ -1,4 +1,4 @@
 module.exports = {
-  publicPath: '/vue-calendar/',
+  publicPath: '/vue_calendar/',
   outputDir: 'docs'
 }
