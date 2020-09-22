@@ -1,7 +1,20 @@
 <template>
   <div id="navigation-bar">
     <V-toolbar height="50px" color="cyan darken-3" dark flat>
-      <V-app-bar-nav-icon></V-app-bar-nav-icon>
+      <V-menu v-model="value" offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <V-app-bar-nav-icon v-bind="attrs" v-on="on"> </V-app-bar-nav-icon>
+        </template>
+        <v-list dense>
+          <v-list-item
+            v-for="(item, index) in menu"
+            :key="index"
+            @click.prevent
+          >
+            <v-list-item-title>{{ item }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </V-menu>
       <V-btn icon small @click="setLastMonth"
         ><V-icon>mdi-chevron-left</V-icon></V-btn
       >
@@ -35,24 +48,25 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
-      picker: null
+      picker: null,
+      menu: ["月別", "週別 /未実装", "日別 /未実装"],
     };
   },
   computed: {
     ...mapGetters(["year", "month", "today"]),
   },
-  methods:{
+  methods: {
     ...mapActions(["setLastMonth", "setNextMonth", "setCurrentYearAndMonth"]),
-    setYearMonth: function(){
-      const year = Number(this.picker.slice(0,4));
+    setYearMonth: function() {
+      const year = Number(this.picker.slice(0, 4));
       const month = Number(this.picker.slice(-2));
       this.$store.dispatch("setYear", year);
       this.$store.dispatch("setMonth", month);
     },
     setPicker: function() {
-      this.picker = this.year + "-" + ("00" + this.month).slice(-2)
-    }
-  }
+      this.picker = this.year + "-" + ("00" + this.month).slice(-2);
+    },
+  },
 };
 </script>
 
