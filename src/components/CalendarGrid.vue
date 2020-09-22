@@ -51,7 +51,11 @@ export default {
       }
       return false;
     },
-    isThisMonth: function(dateNum){
+    /**
+     * 今月の日付かどうかの判定
+     * 文字か数字かで判定
+     */
+    isThisMonth: function(dateNum) {
       return Number.isInteger(dateNum);
     },
     /**
@@ -95,22 +99,20 @@ export default {
         if (i < firstWeekDay) {
           // 先月の日付データ取得
           date = i - firstWeekDay + 1;
-          if(i===0){
+          if (i === 0) {
             calData[i] =
               lastMonth + "/" + new Date(this.year, lastMonth, date).getDate();
-          }else{
-            calData[i] =
-              String(new Date(this.year, lastMonth, date).getDate());
+          } else {
+            calData[i] = String(new Date(this.year, lastMonth, date).getDate());
           }
         } else if (lastDay < dateNum) {
           // 来月の日付データ
           date = dateNum - lastDay;
-          if(date===1){
+          if (date === 1) {
             calData[i] =
               nextMonth + "/" + new Date(this.year, nextMonth, date).getDate();
-          }else{
-            calData[i] =
-              String(new Date(this.year, nextMonth, date).getDate());
+          } else {
+            calData[i] = String(new Date(this.year, nextMonth, date).getDate());
           }
           dateNum++;
         } else {
