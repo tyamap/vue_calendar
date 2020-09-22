@@ -1,27 +1,34 @@
 <template>
-  <div id="app">
-    <Calendar></Calendar>
-  </div>
+  <V-app id="app">
+    <NavigationBar></NavigationBar>
+    <ErrorSnackBar></ErrorSnackBar>
+    <CalendarBoard></CalendarBoard>
+  </V-app>
 </template>
 
 <script>
-import Calendar from './components/Calendar.vue'
+import ErrorSnackBar from "./components/NavigationBar.vue";
+import NavigationBar from "./components/ErrorSnackBar.vue";
+import CalendarBoard from "./views/CalendarBoard.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Calendar
-  }
-}
+    ErrorSnackBar,
+    NavigationBar,
+    CalendarBoard,
+  },
+};
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* margin-top: 60px; */
+  height: 100vh;
+  margin: 0;
 }
 </style>

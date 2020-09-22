@@ -1,24 +1,12 @@
-# vue_cal
+# vue_calendar
 
-## Project setup
-```
-npm install
-```
+## 概要
+フロントエンドの学習用に作成しているカレンダーアプリ
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 機能
+- [x] カレンダーの閲覧
+- [ ] 予定の追加・変更・削除
+- [ ] 表示の変更
+  - [x] 月別
+  - [ ] 週別
+  - [ ] 日別
