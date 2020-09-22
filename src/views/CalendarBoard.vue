@@ -1,14 +1,17 @@
 <template>
   <div id="board">
-    <CalendarElement></CalendarElement>
+    <CalendarGrid></CalendarGrid>
+    <ShowSchedule></ShowSchedule>
+    <AddSchedule v-if="this.$store.getters.addSchedule"></AddSchedule>
   </div>
 </template>
 
 <script>
-import CalendarElement from "@/components/CalendarElement";
+import CalendarGrid from "@/components/CalendarGrid";
+import ShowSchedule from "@/components/ShowSchedule.vue";
+import AddSchedule from "@/components/AddSchedule.vue";
 
 export default {
-  computed: {},
   created() {
     var date = new Date();
     var y = date.getFullYear();
@@ -23,7 +26,9 @@ export default {
     this.$store.dispatch("setToday", y + "-" + m + "-" + d);
   },
   components: {
-    CalendarElement,
+    CalendarGrid,
+    ShowSchedule,
+    AddSchedule,
   },
 };
 </script>
