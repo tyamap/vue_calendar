@@ -64,6 +64,9 @@ export default {
      * 日は引数
      */
     thisSchedules: function(dateNum) {
+      if(!Number.isInteger(dateNum)){
+        return [];
+      }
       const date =
         this.year +
         "-" +
