@@ -1,27 +1,27 @@
 <template>
-    <div class="cal-grid">
-      <div class="weekdays" v-for="dayname in weekdays" :key="dayname">
-        <span>{{ dayname }}</span>
-      </div>
-      <div
-        class="cal-date"
-        v-for="(dateNum, index) in calData"
-        :key="index"
-        @click="dateClick(dateNum)"
-        :class="{
-          'cal-today': isToday(dateNum),
-          active: date === dateNum,
-        }"
-      >
-        <span>{{ dateNum }}</span>
-        <ScheduleElement :schedules="thisSchedules(dateNum)"></ScheduleElement>
-      </div>
+  <div class="cal-grid">
+    <div class="weekdays" v-for="dayname in weekdays" :key="dayname">
+      <span>{{ dayname }}</span>
     </div>
+    <div
+      class="cal-date"
+      v-for="(dateNum, index) in calData"
+      :key="index"
+      @click="dateClick(dateNum)"
+      :class="{
+        'cal-today': isToday(dateNum),
+        'this-month': isThisMonth(dateNum),
+      }"
+    >
+      <span>{{ dateNum }}</span>
+      <ScheduleElement :schedules="thisSchedules(dateNum)"></ScheduleElement>
+    </div>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import ScheduleElement from "./ScheduleElement.vue"
+import ScheduleElement from "./ScheduleElement.vue";
 
 export default {
   methods: {
@@ -29,7 +29,7 @@ export default {
      * カレンダー日付クリック時の処理
      */
     dateClick: function(dateNum) {
-      if (dateNum !== "") {
+      if (Number.isInteger(dateNum)) {
         this.$store.dispatch("setDate", dateNum);
         this.$store.dispatch("toggleAddSchedule");
       }
@@ -51,12 +51,15 @@ export default {
       }
       return false;
     },
+    isThisMonth: function(dateNum){
+      return Number.isInteger(dateNum);
+    },
     /**
      * 引数で受け取った日の予定リストを返す
      * 年、月は現在選択しているページ
      * 日は引数
      */
-    thisSchedules: function(dateNum){
+    thisSchedules: function(dateNum) {
       const date =
         this.year +
         "-" +
@@ -66,7 +69,7 @@ export default {
       let thisSchedules = [];
       for (var i = 0; i < this.schedules.length; i++) {
         if (this.schedules[i].date === date) {
-          thisSchedules.push(this.schedules[i])
+          thisSchedules.push(this.schedules[i]);
         }
       }
       return thisSchedules;
@@ -75,23 +78,41 @@ export default {
   computed: {
     ...mapGetters(["year", "month", "today", "date", "weekdays", "schedules"]),
     calData: function() {
-      var calData = [];
+      let calData = [];
       // 初日の曜日を取得
-      var firstWeekDay = new Date(this.year, this.month - 1, 1).getDay();
+      const firstWeekDay = new Date(this.year, this.month - 1, 1).getDay();
       // 月の日数
-      var lastDay = new Date(this.year, this.month, 0).getDate();
+      const lastDay = new Date(this.year, this.month, 0).getDate();
       // 日数カウント用
-      var dateNum = 1;
+      let dateNum = 1;
+      const lastMonth = this.month === 1 ? 12 : this.month - 1;
+      const nextMonth = this.month === 12 ? 1 : this.month + 1;
+      let date = 0;
 
       // 週ごとのデータを作成して、calDateにpush
       // 日曜～土曜の日付データを配列で作成
-      for (var i = 0; i <= 41; i++) {
+      for (let i = 0; i <= 41; i++) {
         if (i < firstWeekDay) {
-          // 初週の1日以前の曜日は空文字
-          calData[i] = "";
+          // 先月の日付データ取得
+          date = i - firstWeekDay + 1;
+          if(i===0){
+            calData[i] =
+              lastMonth + "/" + new Date(this.year, lastMonth, date).getDate();
+          }else{
+            calData[i] =
+              String(new Date(this.year, lastMonth, date).getDate());
+          }
         } else if (lastDay < dateNum) {
-          // 最終日以降の曜日は空文字
-          calData[i] = "";
+          // 来月の日付データ
+          date = dateNum - lastDay;
+          if(date===1){
+            calData[i] =
+              nextMonth + "/" + new Date(this.year, nextMonth, date).getDate();
+          }else{
+            calData[i] =
+              String(new Date(this.year, nextMonth, date).getDate());
+          }
+          dateNum++;
         } else {
           // 通常の日付入力
           calData[i] = dateNum;
@@ -101,9 +122,9 @@ export default {
       return calData;
     },
   },
-  components:{
+  components: {
     ScheduleElement,
-  }
+  },
 };
 </script>
 
@@ -133,6 +154,10 @@ export default {
   display: inline-block;
   width: 2em;
   line-height: 2em;
+  color: #aaa;
+}
+.this-month span {
+  color: #000;
 }
 .cal-today span {
   border-radius: 50%;
