@@ -48,6 +48,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
+      value: null,
       picker: null,
       menu: ["月別", "週別 /未実装", "日別 /未実装"],
     };
